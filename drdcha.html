@@ -3,7 +3,72 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>شات 12 القديم |شات 12 الجديد | شات 12</title>
+<title>Random Page Generator</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #000; /* لون الخلفية الأسود */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .loader-container {
+	content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        width: 220px;
+        height: 220px;
+        border-radius: 100%;
+        position: relative;
+        font-family: Arial, sans-serif; /* خط النص */
+    }
+
+    .loader-container:before, .loader-container:after {
+        content: 'T L G A W Y .C O M'; /* النص المراد عرضه */
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        font-size: 23px; /* حجم النص */
+        color: #002a15; /* لون النص (لون فيس بوك) */
+        animation: rotate 2s linear infinite;
+    }
+
+    .loader-container:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        width: 100px;
+        height: 100px;
+        border-radius: 100%;
+        border: 3px solid transparent;
+        border-top-color: #002a15; /* لون الحدود (الخضراء) */
+        animation: rotate 2s linear infinite;
+    }
+
+    @keyframes rotate {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
 </head>
 <body>
 <div id="pageInfo"></div>
@@ -11,17 +76,17 @@
     // مصفوفة تحتوي على بيانات الصفحات العشوائية
     var pagesData = [
         {
-            title: "شات 12 القديم |شات 12 الجديد | شات 12",
+            title: "شات لاقيني  | دردشة لاقيني  | شات 12",
             description: "شات مصر. شات مصري - غرف الدردشة المصرية. شات مصرى جميع غرف الدردشة المصرية المجانية على شات 12 دردشة القاهرة والاسكندرية إلتقى احبائك المصريين في موقع 12",
             keywords: "شات 12 دردشة شات عربي مجاني شات مصر موقع 12 شات،شات12،شات"
         },
         {
-            title: "شات 12 القديم |شات 12 الجديد | شات 12",
+            title: "شات لاقيني  | دردشة لاقيني  | شات 12",
             description: "شات مصر. شات مصري - غرف الدردشة المصرية. شات مصرى جميع غرف الدردشة المصرية المجانية على شات 12 دردشة القاهرة والاسكندرية إلتقى احبائك المصريين في موقع 12",
             keywords: "شات 12 دردشة شات عربي مجاني شات مصر موقع 12 شات،شات12،شات"
         },
         {
-            title: "شات 12 القديم |شات 12 الجديد | شات 12",
+            title: "شات لاقيني  | دردشة لاقيني  | شات 12",
             description: "شات مصر. شات مصري - غرف الدردشة المصرية. شات مصرى جميع غرف الدردشة المصرية المجانية على شات 12 دردشة القاهرة والاسكندرية إلتقى احبائك المصريين في موقع 12",
             keywords: "شات 12 دردشة شات عربي مجاني شات مصر موقع 12 شات،شات12،شات"
         },
@@ -56,12 +121,12 @@
             keywords: "شات 12 دردشة شات عربي مجاني شات مصر موقع 12 شات،شات12،شات"
         },
         {
-            title: "شات مصري عربي افريقي",
+            title: "شات لاقيني  | دردشة لاقيني  | شات 12",
             description: "شات مصر. شات مصري - غرف الدردشة المصرية. شات مصرى جميع غرف الدردشة المصرية المجانية على شات 12 دردشة القاهرة والاسكندرية إلتقى احبائك المصريين في موقع 12",
             keywords: "شات 12 دردشة شات عربي مجاني شات مصر موقع 12 شات،شات12،شات"
         },
         {
-            title: "شات 12121212121212",
+            title: "شات لاقيني  | دردشة لاقيني  | شات 12",
             description: "شات مصر. شات مصري - غرف الدردشة المصرية. شات مصرى جميع غرف الدردشة المصرية المجانية على شات 12 دردشة القاهرة والاسكندرية إلتقى احبائك المصريين في موقع 12",
             keywords: "شات 12 دردشة شات عربي مجاني شات مصر موقع 12 شات،شات12،شات"
         },
@@ -81,11 +146,10 @@
     // إعداد عنوان الصفحة ليكون عنوان الصفحة العشوائية
     document.title = title;
 
-    // إنشاء النص لعرض معلومات الصفحة على الصفحة الرئيسية
-    var pageInfoText = "<h1>Title: " + title + "</h1><p>Description: " + description + "</p><p>Keywords: " + keywords + "</p>";
-
-    // عرض معلومات الصفحة على الصفحة الرئيسية
-    document.getElementById("pageInfo").innerHTML = pageInfoText;
+    // إنشاء عنصر div لعرض تأثير التحميل
+    var loaderContainer = document.createElement('div');
+    loaderContainer.classList.add('loader-container');
+    document.body.appendChild(loaderContainer);
 
     // إنشاء عنصر iframe لعرض الصفحة مع الإطار
     var iframe = document.createElement('iframe');
@@ -102,7 +166,13 @@
     iframe.style.padding = "0";
     iframe.style.overflow = "hidden";
     iframe.style.zIndex = "999999";
-    document.body.appendChild(iframe);
+
+    // تأخير عرض الإطار حتى اكتمال عملية التحميل
+    setTimeout(function() {
+        document.body.removeChild(loaderContainer); // إزالة تأثير التحميل
+        document.body.appendChild(iframe); // عرض الإطار
+    }, 3000); // زمن التأخير بالميللي ثانية (هنا 3000 ميللي ثانية أي 3 ثواني)
 </script>
+
 </body>
 </html>
