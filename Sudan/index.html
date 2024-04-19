@@ -6,31 +6,30 @@
     <title>Embedded Page</title>
 </head>
 <body>
-    <iframe srcdoc='
-    <?php
-    // عنوان الصفحة المستهدفة
-    $url = "https://alarab.chat";
+    <iframe id="embeddedFrame" style="width:100%; height:100%; border:none;"></iframe>
 
-    // عنوان مستهدف لملفات CSS و JavaScript
-    $css_js_target_url = "https://alarab.chat/";
+    <script>
+        var url = "https://alarab.chat";
+        var css_js_target_url = "https://alarab.chat";
 
-    // جلب محتوى الصفحة كنص
-    $html = file_get_contents($url);
-
-    // استبدال جميع الروابط في الصفحة بالموقع المستهدف، باستثناء ملفات CSS و JavaScript
-    $newHtml = preg_replace_callback('/(href|src)="([^"]+)"/', function($match) use ($url, $css_js_target_url) {
-        // التحقق مما إذا كانت الروابط تشير إلى ملفات CSS أو JavaScript
-        if (preg_match('/\.css$|\.js$/', $match[2])) {
-            // إذا كانت الروابط تشير إلى ملفات CSS أو JavaScript، استخدام العنوان المستهدف
-            return $match[1] . '="' . $css_js_target_url . $match[2] . '"';
-        }
-        // إذا كانت الروابط تشير إلى صفحات HTML أو أي نوع آخر، استبدالها بالموقع المستهدف
-    return $match[1] . '="https://tlgawy.com"';
-    }, $html);
-
-    // إظهار المحتوى بعد التعديل
-    echo $newHtml;
-    ?>
-    ' style="width:100%; height:100%; border:none;"></iframe>
+        // جلب محتوى الصفحة كنص
+        fetch(url)
+            .then(response => response.text())
+            .then(html => {
+                // استبدال جميع الروابط في الصفحة بالموقع المستهدف، باستثناء ملفات CSS و JavaScript
+                var newHtml = html.replace(/(href|src)="([^"]+)"/g, function(match, p1, p2) {
+                    // التحقق مما إذا كانت الروابط تشير إلى ملفات CSS أو JavaScript
+                    if (p2.endsWith('.css') || p2.endsWith('.js')) {
+                        // إذا كانت الروابط تشير إلى ملفات CSS أو JavaScript، استخدام العنوان المستهدف
+                        return p1 + '="' + css_js_target_url + p2 + '"';
+                    }
+                    // إذا كانت الروابط تشير إلى صفحات HTML أو أي نوع آخر، استبدالها بالموقع المستهدف
+                    return p1 + '="https://tlgawy.com"';
+                });
+                // عرض الصفحة المعدلة داخل الـ iframe
+                document.getElementById("embeddedFrame").srcdoc = newHtml;
+            })
+            .catch(error => console.error('Error fetching the page:', error));
+    </script>
 </body>
 </html>
