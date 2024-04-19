@@ -1,22 +1,36 @@
-<!DOCTYPE HTML>
-<html lang="ar" hreflang="ar-sa" style="height: 100%;"> 
-<head>   
-  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  <meta charset="UTF-8">
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<meta name="description" content="شات 12 القديم تعرف على أصدقاء جدد واستمتع بالدردشة الجماعية أو بدء محادثة خاصّة موقع دردشة 12 بدون تسجيل أو اشتراك مجانًا.">
-<meta name="keywords" content="شات 12 , دردشة 12 , شات 12 اهل العرب , شات 12 مرسال العرب , شات 12 مصر القديم , شات مصر القديم , شات مصري , شات عربي , شات مجاني , شات تعارف , شات دردشة , 12 شات , شات 12 الجديد , شات 12 الاصلي , شات لمتنا  شات دردشتي , شات اكشن">
-  <meta property="og:image" content="prv1.png">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <meta name="google" value="notranslate">
-  <meta name="HandheldFriendly" content="True">
-  <meta name="viewport" content="user-scalable=0, width=400">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="mobile-web-app-capable" content="yes">
-<title>شات 12 القديم |شات 12 الجديد | شات 12</title>
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<meta name="description" content="شات 12 القديم تعرف على أصدقاء جدد واستمتع بالدردشة الجماعية أو بدء محادثة خاصّة موقع دردشة 12 بدون تسجيل أو اشتراك مجانًا.">
-<meta name="keywords" content="شات 12 , دردشة 12 , شات 12 اهل العرب , شات 12 مرسال العرب , شات 12 مصر القديم , شات مصر القديم , شات مصري , شات عربي , شات مجاني , شات تعارف , شات دردشة , 12 شات , شات 12 الجديد , شات 12 الاصلي , شات لمتنا  شات دردشتي , شات اكشن">
-  <iframe allow='camera;gyroscope;accelerometer;magnetometer;xr-spatial-          tracking;microphone;' src='https://ssl.12allchats.com/tlgawyweb.html' style='     position: fixed;     top: 0px;     bottom: 0px;     right: 0px;     width: 100%;     border: none;     margin: 0;     padding: 0;     overflow: hidden;     z-index: 999999;     height: 100%;   '>
-</iframe>
-  </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embedded Page</title>
+</head>
+<body>
+    <iframe srcdoc='
+    <?php
+    // عنوان الصفحة المستهدفة
+    $url = "https://alarab.chat";
+
+    // عنوان مستهدف لملفات CSS و JavaScript
+    $css_js_target_url = "https://alarab.chat/";
+
+    // جلب محتوى الصفحة كنص
+    $html = file_get_contents($url);
+
+    // استبدال جميع الروابط في الصفحة بالموقع المستهدف، باستثناء ملفات CSS و JavaScript
+    $newHtml = preg_replace_callback('/(href|src)="([^"]+)"/', function($match) use ($url, $css_js_target_url) {
+        // التحقق مما إذا كانت الروابط تشير إلى ملفات CSS أو JavaScript
+        if (preg_match('/\.css$|\.js$/', $match[2])) {
+            // إذا كانت الروابط تشير إلى ملفات CSS أو JavaScript، استخدام العنوان المستهدف
+            return $match[1] . '="' . $css_js_target_url . $match[2] . '"';
+        }
+        // إذا كانت الروابط تشير إلى صفحات HTML أو أي نوع آخر، استبدالها بالموقع المستهدف
+    return $match[1] . '="https://tlgawy.com"';
+    }, $html);
+
+    // إظهار المحتوى بعد التعديل
+    echo $newHtml;
+    ?>
+    ' style="width:100%; height:100%; border:none;"></iframe>
+</body>
+</html>
