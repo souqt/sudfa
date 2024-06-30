@@ -29,6 +29,7 @@
         // تعيين مصدر iframe إلى عنوان URL المقدم
         var siteUrl = getQueryParam('url');
         if (siteUrl) {
+            console.log('URL to be loaded:', siteUrl); // رسالة توضيحية
             document.getElementById('siteFrame').src = siteUrl;
         } else {
             document.body.innerHTML = "<p style='text-align:center; font-size:24px;'>URL not provided.</p>";
