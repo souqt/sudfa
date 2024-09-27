@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حماية iframe</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+    <script>
+        // توليد رمز عشوائي (شفرة) بحدود 16 بايت
+        function generateToken() {
+            const array = new Uint8Array(16);
+            window.crypto.getRandomValues(array);
+            return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+        }
+
+        // تنفيذ الوظيفة عند تحميل الصفحة
+        window.onload = function() {
+            const token = generateToken(); // توليد رمز عشوائي
+            const targetUrl = 'https://chat.arabx.chat/chat/'; // ضع هنا رابط الموقع الهدف
+
+            // التحقق من مصدر الصفحة
+            if (!document.referrer || !document.referrer.includes(window.location.host)) {
+                // إذا كان الرابط فُتح خارج الـ iframe، إعادة التوجيه
+                window.location.href = 'https://arabx.chat/chat.html'; // ضع هنا رابط الموقع الآخر
+            } else {
+                // إعداد iframe
+                const iframe = document.createElement('iframe');
+                iframe.src = targetUrl + '?code=' + token;
+                iframe.allow = 'camera;gyroscope;accelerometer;magnetometer;xr-spatial-tracking;microphone;';
+                iframe.style.position = 'fixed';
+                iframe.style.top = '0';
+                iframe.style.bottom = '0';
+                iframe.style.left = '0';
+                iframe.style.width = '100%';
+                iframe.style.border = 'none';
+                iframe.style.margin = '0';
+                iframe.style.padding = '0';
+                iframe.style.overflow = 'hidden';
+                iframe.style.zIndex = '999999';
+                iframe.style.height = '100%';
+
+                // إضافة الـ iframe إلى الصفحة
+                document.body.appendChild(iframe);
+            }
+        };
+    // التأكد من أن الصفحة الرئيسية لا تعمل داخل إطار (iframe)
+    echo '<script>
+        if (window.top === window.self) {
+            // إذا لم تكن داخل إطار، إعادة توجيه إلى صفحة HTML الوهمية
+            window.location.href = "' . $iframe_page . '";
+        }
+    </script>';
+</head>
+<body>
+</body>
+</html>
