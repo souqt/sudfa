@@ -51,7 +51,6 @@
             }
         };
     // التأكد من أن الصفحة الرئيسية لا تعمل داخل إطار (iframe)
-    echo '<script>
         if (window.top === window.self) {
             // إذا لم تكن داخل إطار، إعادة توجيه إلى صفحة HTML الوهمية
             window.location.href = "' . $iframe_page . '";
